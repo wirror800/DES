@@ -24,6 +24,7 @@ PHP 版本  AES(128)
 感谢
 =========
 * http://www.cnblogs.com/txw1958/p/aes.html
+* http://www.cnblogs.com/pengxl/p/3967040.html
 
 
 如何帮助项目

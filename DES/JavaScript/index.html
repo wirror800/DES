@@ -1,0 +1,55 @@
+<script src="js/CryptoJS/rollups/tripledes.js"></script>
+<script src="js/CryptoJS/components/mode-ecb.js"></script>
+<script>
+    function encryptByDES(message, key, format) {
+        var keyHex = CryptoJS.enc.Utf8.parse(key);      
+        var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+            iv: keyHex,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7
+        });
+
+        if(format==undefined || format=='hex')
+        {
+            encrypted = CryptoJS.enc.Base64.parse(encrypted.toString()).toString();
+        }
+        else
+        {
+            encrypted = encrypted.toString();
+        }
+
+        return encrypted;
+    }
+
+    function decryptByDES(ciphertext, key, format) {
+        if(format==undefined || format=='hex')
+        {
+            ciphertext = CryptoJS.enc.Hex.parse(ciphertext);
+        }
+        else
+        {
+            ciphertext = CryptoJS.enc.Base64.parse(ciphertext);
+        }
+
+        var keyHex = CryptoJS.enc.Utf8.parse(key);      
+        var decrypted = CryptoJS.DES.decrypt({
+            ciphertext: ciphertext
+        }, keyHex, {
+            iv: keyHex,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7
+        });
+
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    }
+
+    var key = 'J1K2T3K4';
+    var message = '13248308835';
+
+    var encrypted = encryptByDES(message, key);
+    console.log(encrypted);
+
+    var decrypted = decryptByDES(encrypted, key);
+    console.log(decrypted);
+
+</script>
